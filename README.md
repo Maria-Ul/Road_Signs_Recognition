@@ -28,6 +28,9 @@ Road signs recognition project for DL on practise course at ITMO University
 - UNREADABLE_URDBL
 - PROHIBITORY_120_SIGN
 
+Распределение количества данных по классам
+
+
 ![Распределение количества данных по классам](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/labels.jpg)
 
 
@@ -35,8 +38,15 @@ Road signs recognition project for DL on practise course at ITMO University
 
 
 YOLOv8
+
+Нормализованная матрица ошибок
 ![Нормализованная матрица ошибок](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/confusion_matrix_normalized.png)
 
+
+F1 - кривая
+![F1 - кривая]([https://github.com/Maria-g](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)
+
+По графику  F1- кривой видно, что модель обучилась лучше всего на самых многочисленных классах.
 
 ## Подбор гиперпараметров
 
