@@ -1,0 +1,47 @@
+name: rsr_mobile
+description: "The mobile application part of the 'Traffic Signs Detection' project"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # UI
+  cupertino_icons: ^1.0.6
+  bot_toast: ^4.1.3
+  # BLoC
+  flutter_bloc: ^8.1.3
+  bloc_concurrency: ^0.2.2
+  provider: ^6.1.1
+  equatable: ^2.0.5
+  # ML
+  tflite_flutter: ^0.10.3
+  path_provider: ^2.1.1
+  # Camera
+  camera: ^0.10.5+5
+  image: ^4.1.3
+  exif: ^3.3.0
+  camera_avfoundation: ^0.9.13+7
+  native_device_orientation: ^1.2.1
+  # Lifecycle & Permissions
+  wakelock: ^0.6.2
+  permission_handler: ^11.1.0
+  device_info_plus: ^8.2.2
+  
+  # Other
+  collection: ^1.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/models/
