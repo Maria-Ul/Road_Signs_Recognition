@@ -34,6 +34,8 @@ Road signs recognition project for DL on practise course at ITMO University
 ![Распределение количества данных по классам](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/labels.jpg)
 
 
+По распределению видно, что данные не сбалансированны. Но для того, чтобы охватить большее число знаков мы решили не удалять малочисленные классы и оставить датасет в первоначальном виде.
+
 ## Выбранная модель
 
 
