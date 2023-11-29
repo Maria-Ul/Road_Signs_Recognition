@@ -15,6 +15,19 @@ Road signs recognition project for DL on practise course at ITMO University
 Датасет с шведскими знаками:
 [ссылка](https://www.cvl.isy.liu.se/research/datasets/traffic-signs-dataset/)
 
+В датасете есть размеченные данные (порядка 3500 картинок) и большое количество неразмеченных данных.
+Работать мы будем только с размеченной частью датасета, но для начала необходимо привести разметку в формат Yolo.
+Разметка выглядит следующим образом:
+- Image000004.jpg:MISC_SIGNS;VISIBLE, 616.957210, 718.303048, 580.957210, 679.303048, INFORMATION, PRIORITY_ROAD;VISIBLE, 176.952430, 725.056080, 139.698699, 691.424239, OTHER, OTHER;VISIBLE, 544.440211, 712.322978, 504.440211, 678.322978, OTHER, OTHER;
+- имя изображения: специальные теги объекта, 4 координаты бокса в абсолютных величинах, категория знака, название знака;
+Мы решили сохранить и категорию и названия знака в имени класса.
+Для парсинга файла с аннотациями был создан скрипт на Python [sweden_dataset_parser.py](path/to/your/file.py)
+
+Далее полученнаяя разметка была проверена при помощи [LabelImg](https://github.com/HumanSignal/labelImg):
+![пример разметки](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)
+После ручной проверки мы убедились, что парсер и полученная разметка корректны.
+
+
 Детектируемые классы:
 - INFORMATION_PRIORITY_ROAD
 - MANDATORY_PASS_EITHER_SIDE
