@@ -8,8 +8,13 @@ class NMSService {
     required int tensorSize,
     required int numAttributes,
     required int totalOutputDimensions,
+    bool enableNMS = true,
   }) {
     final transposedOutput = _transpose(rawOutput);
+
+    if (!enableNMS) {
+      return _returnWithoutNMS(transposedOutput, confidenceThreshold, numAttributes);
+    }
 
     List<int> bestClasses = [];
     List<double> bestScores = [];
@@ -51,6 +56,32 @@ class NMSService {
       result.add(temp);
     }
     return result;
+  }
+
+  static (List<int>, List<List<double>>, List<double>) _returnWithoutNMS(
+      List<List<double>> tensor, double confidenceThreshold, int numAttributes) {
+    List<int> classes = [];
+    List<double> scores = [];
+    List<List<double>> boxes = [];
+
+    for (int i = 0; i < tensor.length; i++) {
+      double bestScore = 0;
+      int bestClass = -1;
+      for (int j = numAttributes; j < tensor[i].length; j++) {
+        double clsScore = tensor[i][j];
+        if (clsScore > bestScore) {
+          bestScore = clsScore;
+          bestClass = j - numAttributes;
+        }
+      }
+      if (bestScore > confidenceThreshold) {
+        classes.add(bestClass);
+        scores.add(bestScore);
+        boxes.add(tensor[i].sublist(0, numAttributes));
+      }
+    }
+
+    return (classes, boxes, scores);
   }
 
   static (List<int>, List<List<double>>, List<double>) _processResults(
