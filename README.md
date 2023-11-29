@@ -130,8 +130,6 @@ F1 - кривая
 
 [Работа приложения на iPhone 12 mini](https://drive.google.com/file/d/1vzdl68XfS0ODy89DIL_L0YsudLfRL-H9/view?usp=sharing)
 
-[Проект мобильного приложения](https://github.com/Maria-Ul/Road_Signs_Recognition/tree/mobile)
-
 ## Результат работы сети 
 
 Предсказание модели, обученной на 4х классах.
