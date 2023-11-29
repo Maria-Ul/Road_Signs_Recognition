@@ -44,11 +44,14 @@ YOLOv8
 
 
 F1 - кривая
-![F1 - кривая](https://github.com/Maria-g](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)
+![F1 кривая](https://github.com/Maria-g](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)
 
 По графику  F1- кривой видно, что модель обучилась лучше всего на самых многочисленных классах.
 
 ## Подбор гиперпараметров
+
+
+Основная проблема в решении задачи - подобрать верный набор данных. Мы рассмотрели два датасета: с небольшим числом обобщенных классов () и с большим числом классов (шведские знаки), но несбалансированных. 
 
 
 ## Интеграция в приложение
