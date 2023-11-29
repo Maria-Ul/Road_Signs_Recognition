@@ -7,10 +7,23 @@ Road signs recognition project for DL on practise course at ITMO University
 [ссылка](https://www.kaggle.com/datasets/valentynsichkar/traffic-signs-dataset-in-yolo-format)
 
 Детектируемые классы:
-- prohibitory
-- danger
-- mandatory
-- other
+- 0 - prohibitory # запретительный
+- 1 - danger # опасность
+- 2 - mandatory # обязательный
+- 3 - main_road # главная дорога/уступи дорогу
+
+
+Распределение количества данных по классам
+![Распределение количества данных по классам](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/v8n_labels.jpg)
+
+
+Нормализованная матрица ошибок
+![Нормализованная матрица ошибок](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/v8n_confusion_matrix_normalized.png)
+
+
+F1 - кривая
+![F1 кривая](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/v8n_F1_curve.png)
+
 
 Датасет с шведскими знаками:
 [ссылка](https://www.cvl.isy.liu.se/research/datasets/traffic-signs-dataset/)
@@ -85,7 +98,7 @@ F1 - кривая
 ## Результат работы сети 
 
 Предсказание модели, обученной на 4х классах.
-[Инференс 4 класса](ссылку сюда)
+[Инференс 4 класса]([ссылка](https://drive.google.com/file/d/1ALKQGH6weKxGl3DEC3QB8kTw7k-RSM4x/view?usp=drive_link))
 
 Предсказание модели, обученной на 20ти классах.
 
