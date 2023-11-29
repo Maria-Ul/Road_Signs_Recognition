@@ -3,7 +3,7 @@ Road signs recognition project for DL on practise course at ITMO University
 
 ## Данные
 
-Датасет с 4 классами:
+### Датасет с 4 классами:
 [ссылка](https://www.kaggle.com/datasets/valentynsichkar/traffic-signs-dataset-in-yolo-format)
 дополненный собственными данными
 
@@ -34,7 +34,7 @@ F1 - кривая
 ![F1 кривая](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/v8n_F1_curve.png)
 
 
-Датасет с шведскими знаками:
+### Датасет с шведскими знаками:
 [ссылка](https://www.cvl.isy.liu.se/research/datasets/traffic-signs-dataset/)
 
 Детектируемые классы:
