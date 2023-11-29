@@ -44,7 +44,7 @@ YOLOv8
 
 
 F1 - кривая
-![F1 кривая](https://github.com/Maria-g](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)
+![F1 кривая](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/F1_curve.png)
 
 По графику  F1- кривой видно, что модель обучилась лучше всего на самых многочисленных классах.
 
