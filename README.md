@@ -70,7 +70,7 @@ F1 - кривая
 ## Интеграция в приложение
 
 1. Экспорт весов модели в формат tflite `yolo export model=model_name.pt format=tflite`
-2. Для мобильного приложения использовался фреймворк [Flutter](https://docs.flutter.dev/get-started/install)
+2. Для мобильного приложения использовался фреймворк [flutter](https://docs.flutter.dev/get-started/install)
 3. Для интеграции модели в приложение использовалась библиотека [tflite_flutter](https://pub.dev/packages/tflite_flutter)
 4. Для доступа к камере устройства использовалась библиотека [camera](https://pub.dev/packages/camera)
 5. Процесс обработки изображений происходит следующим образом:
@@ -80,7 +80,7 @@ F1 - кривая
   - изменяется размер изображения в соответствии с моделью и изображение преобразуется в inputTensor
   - осуществляется работа модели
   - полученный outputTensor обрабатывается при помощи NMS (Non Maximum Suppression)
-  - outputTensor конвертируется в List<BoxModel> с полями: className, xCenter, yCenter, width, height
+  - outputTensor конвертируется в список BoxModel с полями: className, xCenter, yCenter, width, height
 
 ## Результат работы сети 
 
