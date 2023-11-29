@@ -5,6 +5,12 @@ Road signs recognition project for DL on practise course at ITMO University
 
 Датасет с 4 классами:
 [ссылка](https://www.kaggle.com/datasets/valentynsichkar/traffic-signs-dataset-in-yolo-format)
+дополненный собственными данными
+
+- train\images - 1315
+- train\labels - 1315
+- val\images - 319
+- val\labels - 319
 
 Детектируемые классы:
 - 0 - prohibitory # запретительный
@@ -12,6 +18,9 @@ Road signs recognition project for DL on practise course at ITMO University
 - 2 - mandatory # обязательный
 - 3 - main_road # главная дорога/уступи дорогу
 
+## Выбранная модель
+
+YOLOv8n
 
 Распределение количества данных по классам
 ![Распределение количества данных по классам](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/v8n_labels.jpg)
@@ -98,7 +107,8 @@ F1 - кривая
 ## Результат работы сети 
 
 Предсказание модели, обученной на 4х классах.
-[Инференс 4 класса]([ссылка](https://drive.google.com/file/d/1ALKQGH6weKxGl3DEC3QB8kTw7k-RSM4x/view?usp=drive_link))
+[Инференс 4 класса]
+[ссылка](https://drive.google.com/file/d/1ALKQGH6weKxGl3DEC3QB8kTw7k-RSM4x/view?usp=drive_link)
 
 Предсказание модели, обученной на 20ти классах.
 
