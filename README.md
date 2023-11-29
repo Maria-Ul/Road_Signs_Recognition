@@ -91,7 +91,6 @@ F1 - кривая
 
 ## Интеграция в приложение
 
-
 1. Экспорт весов модели в формат tflite `yolo export model=model_name.pt format=tflite`
 2. Для мобильного приложения использовался фреймворк [flutter](https://docs.flutter.dev/get-started/install)
 3. Для интеграции модели в приложение использовалась библиотека [tflite_flutter](https://pub.dev/packages/tflite_flutter)
@@ -114,6 +113,7 @@ F1 - кривая
 - iPhone 12 mini: 90 ms
 
 [Работа приложения на iPhone 12 mini](https://drive.google.com/file/d/1vzdl68XfS0ODy89DIL_L0YsudLfRL-H9/view?usp=sharing)
+
 [Проект мобильного приложения](https://github.com/Maria-Ul/Road_Signs_Recognition/tree/mobile)
 
 ## Результат работы сети 
