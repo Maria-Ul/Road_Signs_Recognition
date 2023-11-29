@@ -3,6 +3,15 @@ Road signs recognition project for DL on practise course at ITMO University
 
 ## Данные
 
+Датасет с 4 классами:
+[ссылка](https://www.kaggle.com/datasets/valentynsichkar/traffic-signs-dataset-in-yolo-format)
+
+Детектируемые классы:
+- prohibitory
+- danger
+- mandatory
+- other
+
 Датасет с шведскими знаками:
 [ссылка](https://www.cvl.isy.liu.se/research/datasets/traffic-signs-dataset/)
 
