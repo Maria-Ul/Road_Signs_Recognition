@@ -33,7 +33,6 @@ class _DetectorWidgetState extends State<DetectorWidget> with WidgetsBindingObse
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
       case AppLifecycleState.inactive:
-        cameraController?.stopImageStream();
         _detectorService?.stop();
         _detectorSubscription?.cancel();
         break;
@@ -62,7 +61,7 @@ class _DetectorWidgetState extends State<DetectorWidget> with WidgetsBindingObse
   }
 
   Future<void> initializeDetector() async {
-    _detectorService = await DetectorService.start(DetectorConfig(DetectorModels.sweden32));
+    _detectorService = await DetectorService.start(DetectorConfig(DetectorModels.simple32));
     _detectorSubscription = _detectorService!.resultsStream.stream.listen((values) {
       setState(() {
         boxes = values.$1;
