@@ -104,7 +104,8 @@ F1 - кривая
   - полученный outputTensor обрабатывается при помощи NMS (Non Maximum Suppression)
   - outputTensor конвертируется в список BoxModel с полями: className, xCenter, yCenter, width, height
 
-Average Inference Time:
+### Average Inference Time:
+
 - Xiaomi Redmi 8: 2200 ms
 - OPPO Reno5 Lite: 1200 ms
 - Pixel 6 Pro: 240 ms
