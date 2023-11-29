@@ -26,7 +26,7 @@ Road signs recognition project for DL on practise course at ITMO University
 Далее полученнаяя разметка была проверена при помощи [LabelImg](https://github.com/HumanSignal/labelImg):
 
 
-![визуализация разметки в LabelImg](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/labels_example.jpg)
+![визуализация разметки в LabelImg](images/labels_example.jpg)
 
 
 После ручной проверки мы убедились, что парсер и полученная разметка корректны.
