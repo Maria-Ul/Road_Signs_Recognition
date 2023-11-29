@@ -4,7 +4,6 @@ import 'package:rsr_mobile/src/blocs/camera_bloc/camera_bloc.dart';
 import 'package:rsr_mobile/src/blocs/permissions_bloc/permissions_bloc.dart';
 import 'package:rsr_mobile/src/ui_kit/ui_colors.dart';
 import 'package:rsr_mobile/src/widgets/detector_widget.dart';
-import 'package:wakelock/wakelock.dart';
 
 /// To be used in applications as single source of truth
 /// Outer accessible Widget which wraps all BLoCs and UI
@@ -16,26 +15,11 @@ class PermissionHandlerWidget extends StatefulWidget {
 }
 
 class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
-  late PermissionsBloc permissionsBloc;
+  PermissionsBloc permissionsBloc = PermissionsBloc();
 
   @override
-  void initState() {
-    super.initState();
-    Wakelock.enable();
-    permissionsBloc = PermissionsBloc();
-  }
-
-  @override
-  void dispose() {
-    Wakelock.disable();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => MultiBlocProvider(
-        providers: [
-          BlocProvider<CameraBloc>(create: (_) => CameraBloc()),
-        ],
+  Widget build(BuildContext context) => BlocProvider.value(
+        value: CameraBloc(),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [

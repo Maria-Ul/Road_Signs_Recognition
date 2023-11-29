@@ -12,7 +12,7 @@ import 'package:rsr_mobile/src/models/detection_stats.dart';
 import 'package:rsr_mobile/src/services/detector_service.dart';
 import 'package:rsr_mobile/src/ui_kit/ui_colors.dart';
 import 'package:rsr_mobile/src/ui_kit/ui_consts.dart';
-import 'package:rsr_mobile/src/widgets/box_widget.dart';
+import 'package:rsr_mobile/src/widgets/boxes_widget.dart';
 import 'package:rsr_mobile/src/widgets/stats_widget.dart';
 
 class DetectorWidget extends StatefulWidget {
@@ -62,7 +62,7 @@ class _DetectorWidgetState extends State<DetectorWidget> with WidgetsBindingObse
   }
 
   Future<void> initializeDetector() async {
-    _detectorService = await DetectorService.start();
+    _detectorService = await DetectorService.start(DetectorConfig(DetectorModels.sweden32));
     _detectorSubscription = _detectorService!.resultsStream.stream.listen((values) {
       setState(() {
         boxes = values.$1;
@@ -81,7 +81,7 @@ class _DetectorWidgetState extends State<DetectorWidget> with WidgetsBindingObse
       final camera = cameraBloc.state.camera!;
       cameraController = CameraController(
         camera,
-        Platform.isAndroid ? ResolutionPreset.max : ResolutionPreset.medium,
+        ResolutionPreset.high,
         enableAudio: false,
       );
 
@@ -96,9 +96,8 @@ class _DetectorWidgetState extends State<DetectorWidget> with WidgetsBindingObse
 
   @override
   Future<void> didChangeMetrics() async {
-    final orientation = await NativeDeviceOrientationCommunicator().orientation();
-
     if (Platform.isIOS) {
+      final orientation = await NativeDeviceOrientationCommunicator().orientation(useSensor: true);
       if (orientation == NativeDeviceOrientation.landscapeLeft) {
         cameraController?.lockCaptureOrientation(DeviceOrientation.landscapeLeft);
       }
@@ -140,29 +139,23 @@ class _DetectorWidgetState extends State<DetectorWidget> with WidgetsBindingObse
       return Stack(
         children: [
           SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: FittedBox(
-                fit: BoxFit.cover,
-                child: SizedBox(
-                    width: 100, // the actual width is not important here
-                    child: CameraPreview(cameraController!)),
-              )),
-          _boundingBoxes(),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: 100, // the actual width is not important here
+                child: CameraPreview(cameraController!),
+              ),
+            ),
+          ),
+          BoxesWidget(
+            boxes: boxes,
+            previewSize: cameraController!.value.previewSize!,
+          ),
           StatsWidget(stats),
         ],
       );
     }
-  }
-
-  Stack _boundingBoxes() {
-    return Stack(
-      children: boxes
-          .map((box) => BoxWidget(
-                box: box,
-                previewSize: cameraController!.value.previewSize!,
-              ))
-          .toList(),
-    );
   }
 }

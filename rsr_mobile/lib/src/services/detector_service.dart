@@ -12,16 +12,82 @@ import 'package:rsr_mobile/src/services/nms_service.dart';
 import 'package:rsr_mobile/src/utils/image_utils.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
-abstract class DetectorConfig {
-  static const String modelPath = 'assets/models/yolo.tflite';
-  static const int numClasses = 4;
-  static const Size modelInputSize = Size(640, 640);
-  static const double confidenceThreshold = 0.5;
-  static const double iouThreshold = 0.4;
-  static const int numThreads = 2;
-  static const int numAttributes = 4;
-  static const int tensorSize = 8400;
-  static int get totalOutputDimensions => numAttributes + numClasses;
+enum DetectorModels {
+  simple16,
+  simple32,
+  sweden16,
+  sweden32,
+}
+
+class DetectorConfig {
+  final String modelPath;
+  final int numClasses;
+  final Size modelInputSize = const Size(640, 640);
+  final double confidenceThreshold = 0.5;
+  final double iouThreshold = 0.4;
+  final int numThreads = 2;
+  final int numAttributes = 4;
+  final int tensorSize = 8400;
+  int get totalOutputDimensions => numAttributes + numClasses;
+
+  final List<String> _classNames;
+
+  DetectorConfig._(this.modelPath, this.numClasses, this._classNames);
+
+  // Private constructors for different model types
+  DetectorConfig._simple(String modelPath, DetectorModels model)
+      : this._(
+          modelPath,
+          4,
+          ['prohibitory', 'danger', 'mandatory', 'other'],
+        );
+
+  DetectorConfig._sweden(String modelPath, DetectorModels model)
+      : this._(
+          modelPath,
+          20,
+          [
+            'INFORMATION_PRIORITY_ROAD',
+            'MANDATORY_PASS_EITHER_SIDE',
+            'MANDATORY_PASS_RIGHT_SIDE',
+            'WARNING_GIVE_WAY',
+            'PROHIBITORY_70_SIGN',
+            'PROHIBITORY_90_SIGN',
+            'OTHER_OTHER',
+            'PROHIBITORY_80_SIGN',
+            'PROHIBITORY_50_SIGN',
+            'INFORMATION_PEDESTRIAN_CROSSING',
+            'PROHIBITORY_60_SIGN',
+            'PROHIBITORY_30_SIGN',
+            'PROHIBITORY_NO_PARKING',
+            'MANDATORY_PASS_LEFT_SIDE',
+            'PROHIBITORY_110_SIGN',
+            'PROHIBITORY_STOP',
+            'PROHIBITORY_100_SIGN',
+            'PROHIBITORY_NO_STOPPING_NO_STANDING',
+            'UNREADABLE_URDBL',
+            'PROHIBITORY_120_SIGN'
+          ],
+        );
+
+  factory DetectorConfig(DetectorModels model) {
+    switch (model) {
+      case DetectorModels.simple16:
+        return DetectorConfig._simple('assets/models/yolov8n_1128_01_ds3_ep50_float16.tflite', model);
+      case DetectorModels.simple32:
+        return DetectorConfig._simple('assets/models/yolov8n_1128_01_ds3_ep50_float32.tflite', model);
+      case DetectorModels.sweden16:
+        return DetectorConfig._sweden('assets/models/sweden_best_float16.tflite', model);
+      case DetectorModels.sweden32:
+        return DetectorConfig._sweden('assets/models/sweden_best_float32.tflite', model);
+      default:
+        throw ArgumentError('Invalid model type');
+    }
+  }
+
+  String className(int classId) {
+    return _classNames[classId];
+  }
 }
 
 enum _Codes {
@@ -51,8 +117,8 @@ class DetectorService {
   final StreamController<(List<BoxModel>, DetectionStatsModel)> resultsStream =
       StreamController<(List<BoxModel>, DetectionStatsModel)>();
 
-  static Future<Interpreter> loadModel() async {
-    final options = InterpreterOptions()..threads = DetectorConfig.numThreads;
+  static Future<Interpreter> loadModel(DetectorConfig config) async {
+    final options = InterpreterOptions()..threads = config.numThreads;
     if (Platform.isAndroid) {
       options.addDelegate(XNNPackDelegate());
     }
@@ -61,18 +127,19 @@ class DetectorService {
     }
 
     return await Interpreter.fromAsset(
-      DetectorConfig.modelPath,
+      config.modelPath,
       options: options,
     );
   }
 
-  static Future<DetectorService> start() async {
+  static Future<DetectorService> start(DetectorConfig config) async {
     final ReceivePort receivePort = ReceivePort();
     final Isolate isolate = await Isolate.spawn(
-      _DetectorServer._run,
+      (sendPort) => _DetectorServer._run(sendPort, config),
       receivePort.sendPort,
+      errorsAreFatal: true,
     );
-    final DetectorService result = DetectorService._(isolate, await loadModel());
+    final DetectorService result = DetectorService._(isolate, await loadModel(config));
     receivePort.listen((message) {
       result._handleCommand(message as _Command);
     });
@@ -109,14 +176,15 @@ class DetectorService {
 }
 
 class _DetectorServer {
-  _DetectorServer(this._sendPort);
+  final DetectorConfig config;
+  _DetectorServer(this._sendPort, this.config);
 
   final SendPort _sendPort;
   Interpreter? _interpreter;
 
-  static void _run(SendPort sendPort) {
+  static void _run(SendPort sendPort, DetectorConfig config) {
     ReceivePort receivePort = ReceivePort();
-    final _DetectorServer server = _DetectorServer(sendPort);
+    final _DetectorServer server = _DetectorServer(sendPort, config);
     receivePort.listen((message) async {
       final _Command command = message as _Command;
       await server._handleCommand(command);
@@ -159,8 +227,8 @@ class _DetectorServer {
     var inferenceTimeStart = DateTime.now().millisecondsSinceEpoch;
 
     final outputTensor = _getOutputTensor(
-      totalOutputDimensions: DetectorConfig.totalOutputDimensions,
-      tensorSize: DetectorConfig.tensorSize,
+      totalOutputDimensions: config.totalOutputDimensions,
+      tensorSize: config.tensorSize,
     );
 
     _interpreter?.run(inputTensor, outputTensor);
@@ -178,6 +246,7 @@ class _DetectorServer {
       totalPredictionTime: totalElapsedTime,
       frameWidth: image.width,
       frameHeight: image.height,
+      classes: detections.map((e) => e.className).toList(),
     );
 
     return (detections, stats);
@@ -186,14 +255,14 @@ class _DetectorServer {
   Future<Uint8List> _getInputTensor(img.Image image) async {
     final (resizedImage, _, _) = await ImageUtils.resizeImage(
       image,
-      width: DetectorConfig.modelInputSize.width.toInt(),
-      height: DetectorConfig.modelInputSize.height.toInt(),
+      width: config.modelInputSize.width.toInt(),
+      height: config.modelInputSize.height.toInt(),
     );
 
     final inputTensor = ImageUtils.imageToByteListNormalized(
       resizedImage,
-      width: DetectorConfig.modelInputSize.width.toInt(),
-      height: DetectorConfig.modelInputSize.height.toInt(),
+      width: config.modelInputSize.width.toInt(),
+      height: config.modelInputSize.height.toInt(),
     );
 
     return inputTensor;
@@ -212,11 +281,12 @@ class _DetectorServer {
   List<BoxModel> _getDetectionResults(List<dynamic> outputTensor) {
     final (classes, boxes, _) = NMSService.performNMS(
       outputTensor[0],
-      confidenceThreshold: DetectorConfig.confidenceThreshold,
-      iouThreshold: DetectorConfig.iouThreshold,
-      tensorSize: DetectorConfig.tensorSize,
-      numAttributes: DetectorConfig.numAttributes,
-      totalOutputDimensions: DetectorConfig.totalOutputDimensions,
+      confidenceThreshold: config.confidenceThreshold,
+      iouThreshold: config.iouThreshold,
+      tensorSize: config.tensorSize,
+      numAttributes: config.numAttributes,
+      totalOutputDimensions: config.totalOutputDimensions,
+      enableNMS: true,
     );
     List<BoxModel> detections = [];
 
@@ -225,7 +295,7 @@ class _DetectorServer {
       var classId = classes[i];
 
       final detection = BoxModel(
-        classId: classId,
+        className: config.className(classId),
         xCenter: box[0],
         yCenter: box[1],
         width: box[2],

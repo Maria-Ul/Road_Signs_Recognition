@@ -35,7 +35,7 @@ class BoxUtils {
     final scaledH = box.height * resizeFactorH;
 
     return BoxModel(
-      classId: box.classId,
+      className: box.className,
       xCenter: scaledX,
       height: scaledH,
       yCenter: scaledY,

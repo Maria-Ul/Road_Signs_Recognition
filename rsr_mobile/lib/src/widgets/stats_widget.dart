@@ -12,18 +12,21 @@ class StatsWidget extends StatelessWidget {
         ? Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              color: Colors.white.withAlpha(150),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    StatsRow('Conversion Time:', '${stats!.conversionTime} ms'),
-                    StatsRow('Pre-Processing Time:', '${stats!.preProcessingTime} ms'),
-                    StatsRow('Inference Time:', '${stats!.inferenceTime} ms'),
-                    StatsRow('Total Prediction Time:', '${stats!.totalPredictionTime} ms'),
-                    StatsRow('Frame Size:', '${stats!.frameWidth} X ${stats!.frameHeight}'),
-                  ],
+              color: Colors.white.withAlpha(100),
+              child: SafeArea(
+                bottom: true,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      StatsRow('Conversion Time:', '${stats!.conversionTime} ms'),
+                      StatsRow('Pre-Processing Time:', '${stats!.preProcessingTime} ms'),
+                      StatsRow('Inference Time:', '${stats!.inferenceTime} ms'),
+                      StatsRow('Total Prediction Time:', '${stats!.totalPredictionTime} ms'),
+                      StatsRow('Boxes Count:', stats!.classes.length.toString()),
+                    ],
+                  ),
                 ),
               ),
             ),

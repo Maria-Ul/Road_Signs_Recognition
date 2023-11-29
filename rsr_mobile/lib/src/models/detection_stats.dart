@@ -5,6 +5,7 @@ class DetectionStatsModel {
   final int totalPredictionTime;
   final int frameWidth;
   final int frameHeight;
+  final List<String> classes;
 
   DetectionStatsModel({
     required this.conversionTime,
@@ -13,6 +14,7 @@ class DetectionStatsModel {
     required this.totalPredictionTime,
     required this.frameWidth,
     required this.frameHeight,
+    required this.classes,
   });
 
   @override
