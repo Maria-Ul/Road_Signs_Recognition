@@ -54,9 +54,9 @@ class _BoxWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(UISize.base),
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(UISize.base2x)),
+              borderRadius: BorderRadius.circular(UISize.base),
               border: Border.all(
-                color: UIColors.surface,
+                color: UIColors.surface.withAlpha(100),
                 width: UISize.base / 2,
               ),
             ),
@@ -65,12 +65,19 @@ class _BoxWidget extends StatelessWidget {
         Positioned(
           left: positions.left,
           top: positions.top - 20, // Adjust this value as needed
-          child: Text(
-            box.className,
-            style: TextStyle(
-              color: UIColors.surface,
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
+          child: Container(
+            padding: const EdgeInsets.all(UISize.base / 2),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(UISize.base),
+              color: UIColors.surfaceDark.withAlpha(100),
+            ),
+            child: Text(
+              box.className,
+              style: TextStyle(
+                color: UIColors.surface,
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
