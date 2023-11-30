@@ -7,6 +7,8 @@ Road signs recognition project for DL on practise course at ITMO University
 [ссылка](https://www.kaggle.com/datasets/valentynsichkar/traffic-signs-dataset-in-yolo-format)
 дополненный собственными данными
 
+[ссылка](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/v8n_img_bb_4cl.png)
+
 - train\images - 1315
 - train\labels - 1315
 - val\images - 319
