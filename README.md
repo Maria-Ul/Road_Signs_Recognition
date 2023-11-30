@@ -133,11 +133,10 @@ F1 - кривая
 ## Результат работы сети 
 
 Предсказание модели, обученной на 4х классах.
-[Инференс 4 класса]
-[ссылка](https://drive.google.com/file/d/1ALKQGH6weKxGl3DEC3QB8kTw7k-RSM4x/view?usp=drive_link)
+[Инференс 4 класса](https://drive.google.com/file/d/1ALKQGH6weKxGl3DEC3QB8kTw7k-RSM4x/view?usp=drive_link)
 
 Предсказание модели, обученной на 20ти классах.
 
-[Инференс 20 классов](ссылку сюда)
+[Инференс 20 классов](https://drive.google.com/file/d/1PiYq6qEr0_p6INRz9Li9vQcCZ6EgbAbJ/view?usp=sharing)https://drive.google.com/file/d/1PiYq6qEr0_p6INRz9Li9vQcCZ6EgbAbJ/view?usp=sharing)
 
 
