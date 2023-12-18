@@ -132,7 +132,7 @@ F1 - кривая
 
 [Работа приложения на iPhone 12 mini](https://drive.google.com/file/d/1vzdl68XfS0ODy89DIL_L0YsudLfRL-H9/view?usp=sharing)
 
-(на видео используется fp32, так как разницы в inference time с fp16 не было замечено)
+На видео используется fp32, так как разницы в inference time с fp16 не было замечено. Для iPhone замеры производились в debug mode, для Android в production mode (установленные apk на физические устройства).
 
 ## Результат работы сети 
 
