@@ -131,6 +131,7 @@ F1 - кривая
 - iPhone 12 mini: 90 ms
 
 [Работа приложения на iPhone 12 mini](https://drive.google.com/file/d/1vzdl68XfS0ODy89DIL_L0YsudLfRL-H9/view?usp=sharing)
+
 (на видео используется fp32, так как разницы в inference time с fp16 не было замечено)
 
 ## Результат работы сети 
