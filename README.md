@@ -6,7 +6,7 @@ Road signs recognition project for DL on practise course at ITMO University
 ### Датасет с 4 классами:
 [Traffic Signs Dataset](https://www.kaggle.com/datasets/valentynsichkar/traffic-signs-dataset-in-yolo-format)
 дополненный собственными данными
-[TrainDataSet](https://drive.google.com/drive/folders/1LQg_bKDim-GSNGLlepNCRkJBAo2pLMAI?usp=sharing)
+[TrainDataSet](https://drive.google.com/drive/folders/12q1qRSZ3F8cRILltIx2HKNuMqN_h09Kr?usp=drive_link)
 
 ![](https://github.com/Maria-Ul/Road_Signs_Recognition/blob/main/images/v8n_img_bb_4cl.png)
 
